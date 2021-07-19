@@ -4,6 +4,7 @@
       <div class="container">
         <router-link class="navbar-brand" to="/">
           <img class="img-fluid logo" src="@/assets/logo.png" alt="Logo" />
+          ZPT Commerce
         </router-link>
         <button
           class="navbar-toggler"
@@ -17,7 +18,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse d-flex justify-content-center"
+          class="collapse navbar-collapse d-flex justify-content-end"
           id="navbarSupportedContent"
         >
           <form class="d-flex">
@@ -31,11 +32,6 @@
               Buscar
             </button>
           </form>
-        </div>
-        <div class="cart">
-          <router-link to="/cart">
-            <i class="fas fa-shopping-cart fa-2x cart-icon"></i>
-          </router-link>
         </div>
       </div>
     </nav>

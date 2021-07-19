@@ -18,7 +18,7 @@
                 R$ {{ product.price }}
               </p>
               <p class="card-text">
-                <button type="button" class="btn btn-outline-success">Adicionar ao carrinho</button>
+                <button type="button" @click="addToCart(product.id)" class="btn btn-outline-success">Adicionar ao carrinho</button>
               </p>
             </div>
           </div>
@@ -31,23 +31,26 @@
 <script>
 import Title from "@/components/Title";
 
-
-
 export default {
   name: "Details",
   data () {
     return {
-      product: {
-        image: 'https://via.placeholder.com/400x500',
-        name: 'Produto 1',
-        description: 'Descrição longa do produto 1',
-        price: '40,00'
-      }
+      product: {}
     }
   },
-  // props: {
-  //   product: Object
-  // },
+  async mounted() {
+    let id = this.$route.params.id
+    const response = await fetch(`http://0.0.0.0:8085/api/v1/products/${id}`)
+    const data = await response.json()
+    this.product = data
+  },
+  methods: {
+    addToCart(id) {
+      this.$router.push({
+        path: `/cart/${id}`
+      })
+    }
+  },
   components: {
     Title,
   },
