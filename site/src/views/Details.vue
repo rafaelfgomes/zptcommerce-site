@@ -30,6 +30,7 @@
 
 <script>
 import Title from "@/components/Title";
+import { apiUrl } from '/config'
 
 export default {
   name: "Details",
@@ -40,7 +41,7 @@ export default {
   },
   async mounted() {
     let id = this.$route.params.id
-    const response = await fetch(`http://0.0.0.0:8085/api/v1/products/${id}`)
+    const response = await fetch(`${apiUrl}/products/${id}`)
     const data = await response.json()
     this.product = data
   },

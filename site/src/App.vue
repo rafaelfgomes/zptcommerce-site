@@ -3,7 +3,7 @@
   <main class="container">
     <Menu />
     <Cover :text="setCoverName()" />
-    <router-view/>
+    <router-view :key="$route.fullPath" />
   </main>
   <Footer />
 </template>
@@ -22,6 +22,11 @@ export default {
     Cover,
     Footer
   },
+  data() {
+    return {
+      products: []
+    }
+  },
   methods: {
     setCoverName() {
       let route = this.$route.name
@@ -35,12 +40,15 @@ export default {
 
         case "Details":
           return "DETALHES"
+
+        case "Search":
+          return "FILTRO"
       
         default:
           return "PRODUTOS"
       }
     }
-  }
+  },
 }
 </script>
 

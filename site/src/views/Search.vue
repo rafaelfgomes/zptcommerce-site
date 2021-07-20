@@ -1,6 +1,9 @@
 <template>
   <div class="list my-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div v-if="this.products.length === 0">
+      <h2>Nenhum produto encontrado</h2>
+    </div>
+    <div v-else class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" :key="product.id" v-for="product in products">
         <div class="card h-100">
           <img :src="product.image" class="card-img-top img-product" />
@@ -25,24 +28,26 @@
 import { apiUrl } from '/config'
 
 export default {
-  name: "Products",
+  name: "Search",
   data () {
     return {
       products: []
     }
   },
   async created () {
-    this.products = await this.fetchProducts()
+    console.log(this.$route.params.filter)
+    this.products = await this.fetchProductsFilter(this.$route.params.filter)
+    console.log(this.products.length)
   },
   methods: {
-    async fetchProducts() {
-      const response = await fetch(`${apiUrl}/products/actives`)
+    async fetchProductsFilter(filter) {
+      const response = await fetch(`${apiUrl}/products/search/${filter}`)
       const data = await response.json()
       return data
     },
-    produtDetails(product) {
+    produtDetails(id) {
       this.$router.push({
-        path: `/product/details/${product}`
+        path: `/product/details/${id}`
       })      
     }
   }
@@ -50,8 +55,4 @@ export default {
 </script>
 
 <style>
-.img-product {
-  width: 400px;
-  height: 400px;
-}
 </style>

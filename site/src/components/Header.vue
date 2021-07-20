@@ -25,10 +25,13 @@
             <input
               class="form-control me-2 search"
               type="search"
+              ref="inputSearch"
               placeholder="Digite sua busca"
               aria-label="Buscar"
+              :value="productFilter"
+              required
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-outline-success" @click="searchByName(this.$refs.inputSearch.value)" type="button">
               Buscar
             </button>
           </form>
@@ -41,6 +44,25 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      productFilter: ''
+    }
+  },
+  methods: {
+    searchByName(productFilter) {
+      if (productFilter.length === 0) {
+        return
+      }
+      this.$refs.inputSearch.value = ''
+      this.$router.push({
+        name: 'Search',
+        params: {
+          filter: productFilter
+        }
+      })      
+    }
+  }
 };
 </script>
 

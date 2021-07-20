@@ -49,7 +49,8 @@
 </template>
 
 <script>
-import Title from "@/components/Title";
+import Title from "@/components/Title"
+import { apiUrl } from '/config'
 
 export default {
   name: "Cart",
@@ -64,7 +65,7 @@ export default {
   },
   async mounted() {
     let id = this.$route.params.id
-    const response = await fetch(`http://0.0.0.0:8085/api/v1/products/${id}`)
+    const response = await fetch(`${apiUrl}/products/${id}`)
     const data = await response.json()
     this.product = data
     this.calculateTotal(this.product.price, this.product.quantity)
@@ -73,7 +74,6 @@ export default {
     calculateTotal(price, productQuantity) {
       let cartQuantity = parseInt(this.$refs.cartQuantity.value)
       if (this.checkQuantity(cartQuantity, productQuantity)) {
-        console.log(cartQuantity, productQuantity);
         this.total = parseFloat(this.formatPrice(price) * cartQuantity)
         return
       }
