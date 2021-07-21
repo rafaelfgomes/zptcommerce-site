@@ -9,8 +9,6 @@ services:
         build: 
             context: .
             dockerfile: ./docker/node/Dockerfile
-            args: 
-                API_URL: "${API_URL}"
         ports: 
             - "8181:8080"
         networks:
